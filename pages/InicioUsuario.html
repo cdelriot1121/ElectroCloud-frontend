@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ElectroCaribe</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="../styles/InicioUsuario.css">
+</head>
+<body class="dashboard">
+    <header class="dashboard-header">
+        <nav class="nav-container">
+            <div class="logo">ElectroCaribe</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#">Consumo</a></li>
+                <li><a href="#">Pagos</a></li>
+                <li><a href="#">Reclamos</a></li>
+                <li>
+                    <div class="user-menu">
+                        <span>Juan Pérez</span>
+                        <a href="../index.html" class="btn-logout">Cerrar Sesión</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#resumen">Resumen</a></li>
+                    <li><a href="#consumo">Consumo Mensual</a></li>
+                    <li><a href="#facturas">Facturas</a></li>
+                    <li><a href="#reclamos">Mis Reclamos</a></li>
+                    <li><a href="#perfil">Mi Perfil</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-content">
+            <section class="welcome-section">
+                <h1>Bienvenido, Juan Pérez</h1>
+                <p>Última conexión: 5 de julio, 2024</p>
+            </section>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Consumo Actual</h3>
+                    <p class="card-value">250 kWh</p>
+                    <p class="card-comparison">+5% vs mes anterior</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Última Factura</h3>
+                    <p class="card-value">$150.000</p>
+                    <p class="card-date">Vence: 15/07/2024</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Reclamos Activos</h3>
+                    <p class="card-value">1</p>
+                    <p class="card-status">En proceso</p>
+                </div>
+            </div>
+
+            <section class="consumption-chart">
+                <h2>Historial de Consumo</h2>
+                <div class="chart-container">
+                    <!-- Aquí irá el gráfico -->
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
