@@ -1,4 +1,4 @@
-/* Estilos específicos para la página de registro */
+/* Estilos específicos para la página de registro - CORREGIDO */
 
 .register-container {
   min-height: calc(100vh - 140px);
@@ -15,7 +15,7 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   padding: 3rem;
   width: 100%;
-  max-width: 500px;
+  max-width: 850px; /* Aumentado para acomodar mejor el grid */
   position: relative;
   overflow: hidden;
 }
@@ -96,6 +96,15 @@
   padding: 0.5rem;
 }
 
+/* Estilos para validación */
+.form-group input:invalid:not(:placeholder-shown) {
+  border-color: #e74c3c;
+}
+
+.form-group input:valid:not(:placeholder-shown) {
+  border-color: #27ae60;
+}
+
 .register-form .btn-primary {
   margin-top: 1rem;
   padding: 1rem;
@@ -103,6 +112,7 @@
   border-radius: 10px;
   cursor: pointer;
   transition: var(--transition);
+  width: 100%;
 }
 
 .register-form .btn-primary:hover {
@@ -128,15 +138,6 @@
   text-decoration: underline;
 }
 
-/* Form validation styles */
-.form-group input:invalid {
-  border-color: #e74c3c;
-}
-
-.form-group input:valid {
-  border-color: #27ae60;
-}
-
 /* Animation for form appearance */
 .register-box {
   animation: slideUp 0.6s ease-out;
@@ -153,8 +154,8 @@
   }
 }
 
-/* Grid layout for form fields on larger screens */
-@media (min-width: 768px) {
+/* Grid layout CORREGIDO para pantallas grandes */
+@media (min-width: 900px) {
   .register-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -162,21 +163,29 @@
     align-items: start;
   }
 
-  .form-group:nth-child(1),
-  .form-group:nth-child(2) {
+  /* Nombre completo - columna completa */
+  .form-group:nth-child(1) {
+    grid-column: span 2;
+  }
+
+  /* Dirección y Ciudad - una columna cada uno */
+  .form-group:nth-child(2),
+  .form-group:nth-child(3) {
     grid-column: span 1;
   }
 
-  .form-group:nth-child(3),
+  /* Email - columna completa */
   .form-group:nth-child(4) {
-    grid-column: span 1;
+    grid-column: span 2;
   }
 
+  /* Contraseñas - una columna cada una */
   .form-group:nth-child(5),
   .form-group:nth-child(6) {
     grid-column: span 1;
   }
 
+  /* Botón y enlace - columna completa */
   .register-form .btn-primary,
   .login-link {
     grid-column: span 2;
@@ -198,6 +207,12 @@
   .register-box h2 {
     font-size: 1.7rem;
   }
+
+  /* Asegurar que en móvil sea una columna */
+  .register-form {
+    display: flex !important;
+    flex-direction: column !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -214,4 +229,31 @@
   .form-group select {
     padding: 0.8rem;
   }
+}
+
+/* Estados adicionales para mejor UX */
+.form-group input:disabled,
+.form-group select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-group input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Mejora visual para el select */
+.form-group select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  appearance: none;
+  padding-right: 3rem;
+}
+
+.form-group select:focus {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e65c00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
 }
