@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios - ElectroCaribe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="../styles/services.css">
 </head>
@@ -11,7 +12,12 @@
     <header class="main-header">
         <nav class="nav-container">
             <div class="logo">ElectroCaribe</div>
-            <ul class="nav-links">
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="services.html">Servicios</a></li>
                 <li><a href="about.html">Nosotros</a></li>
@@ -50,5 +56,16 @@
             <p>&copy; 2024 ElectroCaribe. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        // Script para menú móvil
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        
+        mobileMenu.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroCaribe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="styles/index.css">
 </head>
@@ -11,7 +12,12 @@
     <header class="main-header">
         <nav class="nav-container">
             <div class="logo">ElectroCaribe</div>
-            <ul class="nav-links">
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="pages/services.html">Servicios</a></li>
                 <li><a href="pages/about.html">Nosotros</a></li>
@@ -22,9 +28,30 @@
 
     <main>
         <section class="hero">
-            <h1>Bienvenido a ElectroCaribe</h1>
-            <p>Tu proveedor de energía eléctrica en la Costa Atlántica</p>
-            <a href="pages/register.html" class="btn-primary">Registrarse</a>
+            <h1>Iluminando tu vida en la Costa Atlántica</h1>
+            <p>Tu aliado energético confiable en Cartagena, Barranquilla, Santa Marta y toda la región</p>
+            <a href="pages/register.html" class="btn-primary">Únete Ahora</a>
+        </section>
+
+        <section class="features-section">
+            <h2 class="section-title">¿Por qué elegirnos?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Energía Confiable</h3>
+                    <p>Servicio continuo con los más altos estándares de calidad para tu hogar y negocio.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Atención Personalizada</h3>
+                    <p>Soluciones adaptadas a tus necesidades específicas con un equipo humano comprometido.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <h3>Compromiso Ambiental</h3>
+                    <p>Trabajamos por un futuro sostenible implementando prácticas responsables con el medio ambiente.</p>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -33,5 +60,16 @@
             <p>&copy; 2024 ElectroCaribe. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        // Script para menú móvil
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        
+        mobileMenu.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
