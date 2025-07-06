@@ -1,10 +1,14 @@
 /* Principal css */
 :root {
-    --primary-color: #0066cc;
-    --secondary-color: #004d99;
-    --background-color: #f5f5f5;
-    --text-color: #333;
+    --primary-color: #e65c00; /* Naranja intenso */
+    --secondary-color: #8c1d04; /* Vino tinto */
+    --accent-color: #ffbf00; /* Amarillo cálido */
+    --background-color: #fff9f2; /* Fondo cálido muy suave */
+    --text-color: #333333;
+    --light-text: #6e6e6e;
     --white: #ffffff;
+    --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
 * {
@@ -14,15 +18,20 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', 'Arial', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    background-color: var(--background-color);
 }
 
+/* Header y Navegación */
 .main-header {
     background-color: var(--white);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
     padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav-container {
@@ -34,29 +43,77 @@ body {
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.7rem;
+    font-weight: 700;
     color: var(--primary-color);
+    position: relative;
+}
+
+.logo::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 30%;
+    height: 3px;
+    background-color: var(--accent-color);
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--text-color);
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .btn-login {
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     background-color: var(--primary-color);
     color: var(--white) !important;
-    border-radius: 4px;
+    border-radius: 30px;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 5px rgba(230, 92, 0, 0.3);
+    transition: var(--transition);
+    white-space: nowrap;
+    display: inline-block;
+    line-height: 1.2;
+    text-align: center;
 }
 
+.btn-login:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(140, 29, 4, 0.4);
+}
+
+/* Footer */
 .main-footer {
     background-color: var(--secondary-color);
     color: var(--white);
@@ -65,16 +122,130 @@ body {
     margin-top: auto;
 }
 
+/* Botones */
 .btn-primary {
     display: inline-block;
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 1.8rem;
     background-color: var(--primary-color);
     color: var(--white);
     text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    border-radius: 30px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(230, 92, 0, 0.3);
+    transition: var(--transition);
+    white-space: nowrap;
+    line-height: 1.2;
+    text-align: center;
 }
 
 .btn-primary:hover {
     background-color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(140, 29, 4, 0.4);
+}
+
+/* Estilos para el menú móvil */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    z-index: 1010;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: var(--white);
+        flex-direction: column;
+        gap: 0;
+        transition: var(--transition);
+        z-index: 999;
+        padding: 2rem;
+        overflow-y: auto;
+    }
+
+    .nav-links.active {
+        left: 0;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .nav-links li {
+        width: 100%;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .btn-login {
+        display: inline-block;
+        margin-top: 1rem;
+        width: auto;
+    }
+}
+
+/* Estilos para secciones comunes */
+.section-title {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+/* Estilos para cards y containers */
+.card {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }

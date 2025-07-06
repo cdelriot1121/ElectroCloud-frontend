@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - ElectroCaribe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="../styles/InicioUsuario.css">
 </head>
@@ -11,7 +12,12 @@
     <header class="dashboard-header">
         <nav class="nav-container">
             <div class="logo">ElectroCaribe</div>
-            <ul class="nav-links">
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#" class="active">Dashboard</a></li>
                 <li><a href="#">Consumo</a></li>
                 <li><a href="#">Pagos</a></li>
@@ -27,7 +33,7 @@
     </header>
 
     <div class="dashboard-container">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <nav class="sidebar-nav">
                 <ul>
                     <li><a href="#resumen">Resumen</a></li>
@@ -69,9 +75,38 @@
                 <h2>Historial de Consumo</h2>
                 <div class="chart-container">
                     <!-- Aquí irá el gráfico -->
+                    <p>Cargando datos de consumo...</p>
                 </div>
             </section>
         </main>
     </div>
+
+    <script>
+        // Script para menú móvil
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        const sidebar = document.getElementById('sidebar');
+        
+        mobileMenu.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // En pantallas pequeñas, al hacer click en el menú también 
+            // podemos activar/desactivar la visibilidad del sidebar
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.toggle('active');
+            }
+        });
+
+        // Función para manejar cambios de tamaño de ventana
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1024) {
+                // Restablecer estilos para pantallas grandes
+                sidebar.classList.remove('active');
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
