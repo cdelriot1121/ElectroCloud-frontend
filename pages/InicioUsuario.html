@@ -22,6 +22,11 @@
                 <li><a href="#">Pagos</a></li>
                 <li><a href="#">Reclamos</a></li>
                 <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </li>
+                <li>
                     <div class="user-menu">
                         <span>Juan Pérez</span>
                         <a href="../index.html" class="btn-logout">Cerrar Sesión</a>
@@ -166,32 +171,6 @@
         </main>
     </div>
 
-    <script>
-        // Script para menú móvil
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-        const sidebar = document.getElementById('sidebar');
-        
-        mobileMenu.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            
-            // En pantallas pequeñas, al hacer click en el menú también 
-            // podemos activar/desactivar la visibilidad del sidebar
-            if (window.innerWidth <= 1024) {
-                sidebar.classList.toggle('active');
-            }
-        });
-
-        // Función para manejar cambios de tamaño de ventana
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 1024) {
-                // Restablecer estilos para pantallas grandes
-                sidebar.classList.remove('active');
-                navLinks.classList.remove('active');
-                mobileMenu.classList.remove('active');
-            }
-        });
-    </script>
+    <script src="../js/InicioUsuario.js"></script>
 </body>
 </html>
