@@ -28,8 +28,24 @@
                 </li>
                 <li>
                     <div class="user-menu">
-                        <span>Juan Pérez</span>
-                        <a href="../index.html" class="btn-logout">Cerrar Sesión</a>
+                        <div class="user-profile-dropdown">
+                            <button class="user-profile-btn" id="user-profile-btn">
+                                <span>Juan Pérez</span>
+                                <span class="dropdown-arrow">▼</span>
+                            </button>
+                            <div class="dropdown-menu" id="dropdown-menu">
+                                <a href="#" class="dropdown-item">
+                                    <span>Notificaciones</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <span>Mi Perfil</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="../index.html" class="dropdown-item logout">
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>
