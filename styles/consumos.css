@@ -1,0 +1,468 @@
+/* Estilos específicos para la página de consumos */
+
+.page-header {
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-light);
+}
+
+.page-header h1 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.page-header p {
+    color: var(--light-text);
+    font-size: 1rem;
+}
+
+.consumo-form-section, .resumen-section {
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-light);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-header h2 {
+    color: var(--text-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.consumo-form {
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-group input[type="month"],
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.form-group input[type="month"]:focus,
+.form-group input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(230, 92, 0, 0.1);
+}
+
+.form-help {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--light-text);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-color);
+}
+
+.checkbox-label input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: "✓";
+    color: var(--surface-color);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.btn-submit, .btn-secondary {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    margin-top: 1rem;
+}
+
+.btn-submit:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+}
+
+.resumen-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.resumen-card {
+    background-color: rgba(230, 92, 0, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.resumen-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+}
+
+.resumen-card .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.resumen-card h3 {
+    color: var(--light-text);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.resumen-card .card-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.resumen-card .card-value .unit {
+    font-size: 1rem;
+    color: var(--light-text);
+    font-weight: 400;
+}
+
+.card-period, .card-comparison {
+    font-size: 0.8rem;
+    color: var(--light-text);
+}
+
+.card-comparison.eficiente {
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+.card-comparison.moderado {
+    color: var(--warning-color);
+    font-weight: 500;
+}
+
+.card-comparison.alto {
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+.efficiency-bar {
+    height: 6px;
+    background-color: var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.efficiency-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    transition: width 0.8s ease;
+}
+
+.efficiency-fill.eficiente {
+    background-color: var(--success-color);
+}
+
+.efficiency-fill.moderado {
+    background-color: var(--warning-color);
+}
+
+.efficiency-fill.alto {
+    background-color: var(--danger-color);
+}
+
+.consejos-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.consejos-section h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.consejos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.consejo-card {
+    background-color: rgba(230, 92, 0, 0.05);
+    padding: 1.2rem;
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary-color);
+    transition: var(--transition);
+}
+
+.consejo-card:hover {
+    background-color: rgba(230, 92, 0, 0.08);
+    transform: translateX(4px);
+}
+
+.consejo-card h4 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.consejo-card p {
+    color: var(--light-text);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.consejo-card.eficiente {
+    border-left-color: var(--success-color);
+}
+
+.consejo-card.moderado {
+    border-left-color: var(--warning-color);
+}
+
+.consejo-card.alto {
+    border-left-color: var(--danger-color);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.resumen-section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.resumen-card {
+    animation: slideIn 0.4s ease-out;
+}
+
+.resumen-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.resumen-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.resumen-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.consejo-card {
+    animation: slideIn 0.3s ease-out;
+}
+
+.consejo-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.consejo-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.consejo-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 1.5rem;
+    }
+    
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .consumo-form-section, .resumen-section {
+        padding: 1.5rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .resumen-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .resumen-card {
+        padding: 1.2rem;
+    }
+    
+    .resumen-card .card-value {
+        font-size: 1.5rem;
+    }
+    
+    .consejos-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 1rem;
+    }
+    
+    .page-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .consumo-form-section, .resumen-section {
+        padding: 1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.1rem;
+    }
+    
+    .resumen-card {
+        padding: 1rem;
+    }
+    
+    .resumen-card .card-icon {
+        font-size: 1.5rem;
+    }
+    
+    .resumen-card .card-value {
+        font-size: 1.3rem;
+    }
+    
+    .consejo-card {
+        padding: 1rem;
+    }
+    
+    .btn-submit, .btn-secondary {
+        font-size: 0.8rem;
+        padding: 0.7rem 1.2rem;
+    }
+}

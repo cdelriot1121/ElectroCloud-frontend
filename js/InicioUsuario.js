@@ -7,6 +7,10 @@ const themeToggle = document.getElementById('theme-toggle');
 const themeIcon = document.querySelector('.theme-icon');
 const body = document.body;
 
+// Elementos del dropdown
+const userProfileBtn = document.getElementById('user-profile-btn');
+const dropdownMenu = document.getElementById('dropdown-menu');
+
 // Funcionalidad de modo oscuro
 function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -24,8 +28,34 @@ function toggleTheme() {
     updateThemeIcon(isDark);
 }
 
+// Funcionalidad del dropdown de perfil
+function toggleDropdown() {
+    const isOpen = dropdownMenu.classList.toggle('show');
+    userProfileBtn.classList.toggle('active', isOpen);
+}
+
+function closeDropdown() {
+    dropdownMenu.classList.remove('show');
+    userProfileBtn.classList.remove('active');
+}
+
 // Event listeners
 themeToggle.addEventListener('click', toggleTheme);
+userProfileBtn.addEventListener('click', toggleDropdown);
+
+// Cerrar dropdown al hacer clic fuera
+document.addEventListener('click', function(event) {
+    if (!userProfileBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        closeDropdown();
+    }
+});
+
+// Cerrar dropdown al presionar ESC
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeDropdown();
+    }
+});
 
 // Script para menú móvil
 mobileMenu.addEventListener('click', function () {
@@ -44,6 +74,8 @@ window.addEventListener('resize', function () {
         navLinks.classList.remove('active');
         mobileMenu.classList.remove('active');
     }
+    // Cerrar dropdown en cambios de tamaño
+    closeDropdown();
 });
 
 // Animaciones para los números en las tarjetas

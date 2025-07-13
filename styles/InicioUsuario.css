@@ -164,10 +164,10 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: rgba(230, 92, 0, 0.05);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
 }
 
 .user-menu span {
@@ -748,6 +748,108 @@ body {
     font-style: italic;
 }
 
+/* Dropdown del perfil de usuario */
+.user-profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(230, 92, 0, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.user-profile-btn:hover {
+    background-color: rgba(230, 92, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    transition: var(--transition);
+}
+
+.user-profile-btn.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 180px;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-medium);
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+    margin-top: 0.5rem;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 0;
+}
+
+.dropdown-item:first-child {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.dropdown-item:last-child {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(230, 92, 0, 0.08);
+    color: var(--primary-color);
+}
+
+.dropdown-item.logout:hover {
+    background-color: rgba(231, 76, 60, 0.08);
+    color: var(--danger-color);
+}
+
+.dropdown-icon {
+    font-size: 1rem;
+    width: 16px;
+    text-align: center;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0.5rem 0;
+}
+
 /* Animaciones y efectos adicionales - Minimalistas */
 @keyframes fadeInUp {
     from {
@@ -892,13 +994,23 @@ body,
         align-items: flex-start;
         gap: 0.5rem;
         margin-top: 1rem;
-        padding: 1rem;
-        background-color: rgba(230, 92, 0, 0.05);
-        border-radius: var(--radius-md);
+        padding: 0;
+        background-color: transparent;
+        border-radius: 0;
     }
 
-    .btn-logout {
-        margin-top: 0.5rem;
+    .dropdown-menu {
+        position: static;
+        min-width: 100%;
+        margin-top: 0;
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+        background-color: rgba(230, 92, 0, 0.05);
+    }
+
+    .user-profile-btn {
+        width: 100%;
+        justify-content: space-between;
     }
     
     .menu-toggle {
@@ -981,9 +1093,22 @@ body,
     
     .user-menu {
         width: 100%;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .user-profile-btn {
+        width: 100%;
         justify-content: space-between;
-        align-items: center;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        margin-top: 0;
+        box-shadow: none;
     }
 }
 
@@ -1001,11 +1126,18 @@ body,
         align-items: flex-start;
         gap: 0.75rem;
     }
-    
-    .btn-logout {
+
+    .user-profile-btn {
         width: 100%;
-        max-width: 120px;
-        text-align: center;
+        justify-content: space-between;
+        padding: 0.75rem;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        margin-top: 0;
+        box-shadow: none;
     }
     
     .welcome-section h1 {

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Consumos - ElectroCaribe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../styles/common.css">
+    <link rel="stylesheet" href="../styles/consumos.css">
+</head>
+<body class="dashboard">
+    <header class="dashboard-header">
+        <nav class="nav-container">
+            <div class="logo">ElectroCaribe</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="InicioUsuario.html">Resumen</a></li>
+                <li><a href="facturas.html">Facturas</a></li>
+                <li><a href="#" class="active">Consumos</a></li>
+                <li><a href="reclamos.html">Reclamos</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </li>
+                <li>
+                    <div class="user-menu">
+                        <div class="user-profile-dropdown">
+                            <button class="user-profile-btn" id="user-profile-btn">
+                                <span>Juan Pérez</span>
+                                <span class="dropdown-arrow">▼</span>
+                            </button>
+                            <div class="dropdown-menu" id="dropdown-menu">
+                                <a href="#" class="dropdown-item">
+                                    <span class="dropdown-icon">🔔</span>
+                                    <span>Notificaciones</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <span class="dropdown-icon">👤</span>
+                                    <span>Mi Perfil</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="../index.html" class="dropdown-item logout">
+                                    <span class="dropdown-icon">🚪</span>
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="InicioUsuario.html">Dashboard</a></li>
+                    <li><a href="facturas.html">Facturas y Pagos</a></li>
+                    <li><a href="#" class="active">Gestionar Consumos</a></li>
+                    <li><a href="reclamos.html">Mis Reclamos</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-content">
+            <section class="page-header">
+                <h1>Gestionar Consumos</h1>
+                <p>Registra tu consumo mensual y obtén consejos para mejorar tu eficiencia energética</p>
+            </section>
+
+            <!-- Formulario de registro de consumo -->
+            <section class="consumo-form-section" id="form-section">
+                <div class="section-header">
+                    <h2>⚡ Registrar Consumo</h2>
+                </div>
+                
+                <form class="consumo-form" id="consumo-form">
+                    <div class="form-group">
+                        <label for="fecha-factura">Fecha de la Factura</label>
+                        <input type="month" id="fecha-factura" name="fecha-factura" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="consumo-kwh">Consumo en kWh</label>
+                        <input type="number" id="consumo-kwh" name="consumo-kwh" min="0" step="0.1" placeholder="Ej: 250.5" required>
+                        <small class="form-help">Ingresa el consumo exacto que aparece en tu factura</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="habitantes">Número de Habitantes en el Hogar</label>
+                        <input type="number" id="habitantes" name="habitantes" min="1" max="20" placeholder="Ej: 4" required>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="info-verificada" name="info-verificada" required>
+                            <span class="checkmark"></span>
+                            Confirmo que esta información corresponde exactamente a lo que aparece en mi factura del mes seleccionado
+                        </label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terminos" name="terminos" required>
+                            <span class="checkmark"></span>
+                            Acepto los términos y condiciones del servicio
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span>📊</span>
+                        Generar Resumen de Consumo
+                    </button>
+                </form>
+            </section>
+
+            <!-- Resumen de consumo (inicialmente oculto) -->
+            <section class="resumen-section" id="resumen-section" style="display: none;">
+                <div class="section-header">
+                    <h2>📈 Resumen de Consumo</h2>
+                    <button class="btn-secondary" id="nuevo-registro">
+                        <span>➕</span>
+                        Nuevo Registro
+                    </button>
+                </div>
+
+                <div class="resumen-cards">
+                    <div class="resumen-card">
+                        <div class="card-icon">⚡</div>
+                        <h3>Consumo Total</h3>
+                        <p class="card-value" id="consumo-total">0 <span class="unit">kWh</span></p>
+                        <p class="card-period" id="periodo-consumo">-</p>
+                    </div>
+
+                    <div class="resumen-card">
+                        <div class="card-icon">👥</div>
+                        <h3>Consumo por Habitante</h3>
+                        <p class="card-value" id="consumo-habitante">0 <span class="unit">kWh</span></p>
+                        <p class="card-comparison" id="comparacion-habitante">-</p>
+                    </div>
+
+                    <div class="resumen-card">
+                        <div class="card-icon">🌱</div>
+                        <h3>Nivel de Eficiencia</h3>
+                        <p class="card-value" id="nivel-eficiencia">-</p>
+                        <div class="efficiency-bar">
+                            <div class="efficiency-fill" id="efficiency-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="consejos-section">
+                    <h3>💡 Consejos Personalizados</h3>
+                    <div class="consejos-container" id="consejos-container">
+                        <!-- Los consejos se generarán dinámicamente -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/consumos.js"></script>
+</body>
+</html>

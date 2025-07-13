@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - ElectroCaribe</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../styles/common.css">
     <link rel="stylesheet" href="../styles/InicioUsuario.css">
 </head>
 <body class="dashboard">
@@ -17,10 +18,10 @@
                 <span></span>
             </div>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#" class="active">Dashboard</a></li>
-                <li><a href="#">Consumo</a></li>
-                <li><a href="#">Pagos</a></li>
-                <li><a href="#">Reclamos</a></li>
+                <li><a href="#" class="active">Resumen</a></li>
+                <li><a href="facturas.html">Facturas</a></li>
+                <li><a href="consumos.html">Consumos</a></li>
+                <li><a href="reclamos.html">Reclamos</a></li>
                 <li>
                     <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
                         <span class="theme-icon">🌙</span>
@@ -28,8 +29,24 @@
                 </li>
                 <li>
                     <div class="user-menu">
-                        <span>Juan Pérez</span>
-                        <a href="../index.html" class="btn-logout">Cerrar Sesión</a>
+                        <div class="user-profile-dropdown">
+                            <button class="user-profile-btn" id="user-profile-btn">
+                                <span>Juan Pérez</span>
+                                <span class="dropdown-arrow">▼</span>
+                            </button>
+                            <div class="dropdown-menu" id="dropdown-menu">
+                                <a href="#" class="dropdown-item">
+                                    <span>Notificaciones</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <span>Mi Perfil</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="../index.html" class="dropdown-item logout">
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -40,11 +57,10 @@
         <aside class="sidebar" id="sidebar">
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="#resumen">Resumen</a></li>
-                    <li><a href="#consumo">Consumo Mensual</a></li>
-                    <li><a href="#facturas">Facturas</a></li>
-                    <li><a href="#reclamos">Mis Reclamos</a></li>
-                    <li><a href="#perfil">Mi Perfil</a></li>
+                    <li><a href="#" class="active">Dashboard</a></li>
+                    <li><a href="facturas.html">Facturas y Pagos</a></li>
+                    <li><a href="consumos.html">Gestionar Consumos</a></li>
+                    <li><a href="reclamos.html">Mis Reclamos</a></li>
                 </ul>
             </nav>
         </aside>
@@ -171,6 +187,7 @@
         </main>
     </div>
 
+    <script src="../js/common.js"></script>
     <script src="../js/InicioUsuario.js"></script>
 </body>
 </html>
