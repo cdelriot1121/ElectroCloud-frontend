@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Reclamos - ElectroCaribe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../styles/common.css">
+    <link rel="stylesheet" href="../styles/reclamos.css">
+</head>
+<body class="dashboard">
+    <header class="dashboard-header">
+        <nav class="nav-container">
+            <div class="logo">ElectroCaribe</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="InicioUsuario.html">Resumen</a></li>
+                <li><a href="facturas.html">Facturas</a></li>
+                <li><a href="consumos.html">Consumos</a></li>
+                <li><a href="#" class="active">Reclamos</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </li>
+                <li>
+                    <div class="user-menu">
+                        <div class="user-profile-dropdown">
+                            <button class="user-profile-btn" id="user-profile-btn">
+                                <span>Juan Pérez</span>
+                                <span class="dropdown-arrow">▼</span>
+                            </button>
+                            <div class="dropdown-menu" id="dropdown-menu">
+                                <a href="#" class="dropdown-item">
+                                    <span class="dropdown-icon">🔔</span>
+                                    <span>Notificaciones</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <span class="dropdown-icon">👤</span>
+                                    <span>Mi Perfil</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="../index.html" class="dropdown-item logout">
+                                    <span class="dropdown-icon">🚪</span>
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="InicioUsuario.html">Dashboard</a></li>
+                    <li><a href="facturas.html">Facturas y Pagos</a></li>
+                    <li><a href="consumos.html">Gestionar Consumos</a></li>
+                    <li><a href="#" class="active">Mis Reclamos</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-content">
+            <section class="page-header">
+                <h1>Mis Reclamos</h1>
+                <p>Gestiona tus reclamos y reportes de fallas del servicio eléctrico</p>
+            </section>
+
+            <!-- Formulario de nuevo reclamo -->
+            <section class="nuevo-reclamo-section">
+                <div class="section-header">
+                    <h2>📋 Nuevo Reclamo</h2>
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="reclamo">Reclamo</button>
+                        <button class="tab-btn" data-tab="falla">Reporte de Falla</button>
+                    </div>
+                </div>
+
+                <!-- Formulario de reclamo -->
+                <form class="reclamo-form" id="reclamo-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tipo-reclamo">Tipo de Reclamo</label>
+                            <select id="tipo-reclamo" name="tipo-reclamo" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="facturacion">Facturación</option>
+                                <option value="calidad">Calidad del Servicio</option>
+                                <option value="atencion">Atención al Cliente</option>
+                                <option value="cobro">Cobro Indebido</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prioridad">Prioridad</label>
+                            <select id="prioridad" name="prioridad" required>
+                                <option value="">Seleccionar prioridad</option>
+                                <option value="baja">Baja</option>
+                                <option value="media">Media</option>
+                                <option value="alta">Alta</option>
+                                <option value="urgente">Urgente</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="asunto">Asunto</label>
+                        <input type="text" id="asunto" name="asunto" placeholder="Resumen breve del reclamo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción Detallada</label>
+                        <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describe detalladamente tu reclamo..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="archivo">Adjuntar Archivos (opcional)</label>
+                        <input type="file" id="archivo" name="archivo" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                        <small class="form-help">Formatos permitidos: PDF, JPG, PNG, DOC, DOCX. Máximo 5MB por archivo.</small>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span>📝</span>
+                        Enviar Reclamo
+                    </button>
+                </form>
+
+                <!-- Formulario de reporte de falla -->
+                <form class="falla-form hidden" id="falla-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tipo-falla">Tipo de Falla</label>
+                            <select id="tipo-falla" name="tipo-falla" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="corte">Corte de Energía</option>
+                                <option value="voltaje">Problemas de Voltaje</option>
+                                <option value="fluctuacion">Fluctuación de Energía</option>
+                                <option value="poste">Daño en Poste</option>
+                                <option value="cables">Cables Caídos</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fecha-falla">Fecha y Hora de la Falla</label>
+                            <input type="datetime-local" id="fecha-falla" name="fecha-falla" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ubicacion">Ubicación Exacta</label>
+                        <input type="text" id="ubicacion" name="ubicacion" placeholder="Dirección específica donde ocurrió la falla" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion-falla">Descripción de la Falla</label>
+                        <textarea id="descripcion-falla" name="descripcion-falla" rows="4" placeholder="Describe qué ocurrió y cómo afectó el servicio..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="afectados">Usuarios Afectados (estimado)</label>
+                        <select id="afectados" name="afectados" required>
+                            <option value="">Seleccionar</option>
+                            <option value="solo-yo">Solo mi hogar</option>
+                            <option value="vecinos">Varios vecinos</option>
+                            <option value="cuadra">Toda la cuadra</option>
+                            <option value="sector">Todo el sector</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="archivo-falla">Adjuntar Fotos (opcional)</label>
+                        <input type="file" id="archivo-falla" name="archivo-falla" multiple accept=".jpg,.jpeg,.png">
+                        <small class="form-help">Fotos que ayuden a identificar la falla. Máximo 5MB por archivo.</small>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span>⚠️</span>
+                        Reportar Falla
+                    </button>
+                </form>
+            </section>
+
+            <!-- Registro de reclamos -->
+            <section class="reclamos-historial">
+                <div class="section-header">
+                    <h2>📊 Historial de Reclamos</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="todos">Todos</button>
+                        <button class="filter-btn" data-filter="abierto">Abiertos</button>
+                        <button class="filter-btn" data-filter="proceso">En Proceso</button>
+                        <button class="filter-btn" data-filter="cerrado">Cerrados</button>
+                    </div>
+                </div>
+
+                <div class="reclamos-grid" id="reclamos-grid">
+                    <div class="reclamo-card" data-status="proceso">
+                        <div class="card-header">
+                            <div class="card-id">#REC-2024-001</div>
+                            <div class="card-status proceso">En Proceso</div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Cobro Indebido en Factura</h3>
+                            <p>Se está cobrando un consumo excesivo que no corresponde al uso real del hogar.</p>
+                            <div class="card-meta">
+                                <span class="card-date">📅 5 Jul 2024</span>
+                                <span class="card-type">💰 Facturación</span>
+                                <span class="card-priority alta">🔴 Alta</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-action">Ver Detalles</button>
+                            <button class="btn-action secondary">Seguimiento</button>
+                        </div>
+                    </div>
+
+                    <div class="reclamo-card" data-status="cerrado">
+                        <div class="card-header">
+                            <div class="card-id">#REC-2024-002</div>
+                            <div class="card-status cerrado">Cerrado</div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Problema de Voltaje</h3>
+                            <p>Fluctuaciones constantes de voltaje que afectan los electrodomésticos.</p>
+                            <div class="card-meta">
+                                <span class="card-date">📅 28 Jun 2024</span>
+                                <span class="card-type">⚡ Calidad</span>
+                                <span class="card-priority media">🟡 Media</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-action">Ver Detalles</button>
+                            <button class="btn-action secondary">Calificar</button>
+                        </div>
+                    </div>
+
+                    <div class="reclamo-card" data-status="abierto">
+                        <div class="card-header">
+                            <div class="card-id">#FAL-2024-001</div>
+                            <div class="card-status abierto">Abierto</div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Corte de Energía</h3>
+                            <p>Corte prolongado de energía en el sector sin notificación previa.</p>
+                            <div class="card-meta">
+                                <span class="card-date">📅 10 Jul 2024</span>
+                                <span class="card-type">⚠️ Falla</span>
+                                <span class="card-priority urgente">🔴 Urgente</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-action">Ver Detalles</button>
+                            <button class="btn-action secondary">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/reclamos.js"></script>
+</body>
+</html>

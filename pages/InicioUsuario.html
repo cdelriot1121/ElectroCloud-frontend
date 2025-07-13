@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - ElectroCaribe</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../styles/common.css">
     <link rel="stylesheet" href="../styles/InicioUsuario.css">
 </head>
 <body class="dashboard">
@@ -18,9 +19,9 @@
             </div>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#" class="active">Resumen</a></li>
-                <li><a href="#">Consumos</a></li>
-                <li><a href="#">Acciones</a></li>
-                <li><a href="#">Notificaciones</a></li>
+                <li><a href="facturas.html">Facturas</a></li>
+                <li><a href="consumos.html">Consumos</a></li>
+                <li><a href="reclamos.html">Reclamos</a></li>
                 <li>
                     <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
                         <span class="theme-icon">🌙</span>
@@ -56,10 +57,10 @@
         <aside class="sidebar" id="sidebar">
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="#InicioUsuario">Dashboard</a></li>
-                    <li><a href="#facturasPagos">Facturas y Pagos</a></li>
-                    <li><a href="#Consumos">Gestionar Consumos</a></li>
-                    <li><a href="#reclamos">Mis Reclamos</a></li>
+                    <li><a href="#" class="active">Dashboard</a></li>
+                    <li><a href="facturas.html">Facturas y Pagos</a></li>
+                    <li><a href="consumos.html">Gestionar Consumos</a></li>
+                    <li><a href="reclamos.html">Mis Reclamos</a></li>
                 </ul>
             </nav>
         </aside>
@@ -186,6 +187,7 @@
         </main>
     </div>
 
+    <script src="../js/common.js"></script>
     <script src="../js/InicioUsuario.js"></script>
 </body>
 </html>
