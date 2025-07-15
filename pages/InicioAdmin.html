@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Administrativo - ElectroCaribe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../styles/InicioAdmin.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="admin-navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-bolt"></i>
+                <span>ElectroCaribe Admin</span>
+            </div>
+            <div class="navbar-actions">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="admin-profile">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Administrador</span>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Header Section -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Dashboard Administrativo</h1>
+                <p>Monitoreo y gestión de ElectroCaribe</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-refresh" id="refresh-data">
+                    <i class="fas fa-sync-alt"></i>
+                    Actualizar Datos
+                </button>
+                <button class="btn-export" id="export-report">
+                    <i class="fas fa-download"></i>
+                    Exportar Reporte
+                </button>
+            </div>
+        </header>
+
+        <!-- Statistics Cards -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon users">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-users">0</h3>
+                        <p>Usuarios Registrados</p>
+                        <span class="stat-change positive">+12% este mes</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon consumption">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="avg-consumption">0 kWh</h3>
+                        <p>Consumo Promedio</p>
+                        <span class="stat-change negative">-3% este mes</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon bills">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="paid-bills">0</h3>
+                        <p>Facturas Pagadas</p>
+                        <span class="stat-change positive">+8% este mes</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon revenue">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-revenue">$0</h3>
+                        <p>Ingresos del Mes</p>
+                        <span class="stat-change positive">+15% este mes</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Consumo Mensual</h3>
+                        <div class="chart-controls">
+                            <select id="period-selector">
+                                <option value="6">Últimos 6 meses</option>
+                                <option value="12">Último año</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="consumptionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Distribución de Usuarios</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="usersChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports and Complaints Section -->
+        <section class="reports-section">
+            <div class="section-tabs">
+                <button class="tab-btn active" data-tab="complaints">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Quejas y Reclamos
+                </button>
+                <button class="tab-btn" data-tab="reports">
+                    <i class="fas fa-chart-bar"></i>
+                    Reportes
+                </button>
+            </div>
+
+            <!-- Complaints Tab -->
+            <div class="tab-content active" id="complaints-tab">
+                <div class="table-header">
+                    <h3>Quejas y Reclamos Recientes</h3>
+                    <div class="table-actions">
+                        <input type="text" placeholder="Buscar reclamo..." id="search-complaints">
+                        <select id="status-filter">
+                            <option value="all">Todos los estados</option>
+                            <option value="pending">Pendiente</option>
+                            <option value="in-progress">En Proceso</option>
+                            <option value="resolved">Resuelto</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="complaints-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Tipo</th>
+                                <th>Descripción</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Prioridad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="complaints-tbody">
+                            <!-- Se llenará dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Reports Tab -->
+            <div class="tab-content" id="reports-tab">
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="report-content">
+                            <h4>Reporte de Consumo</h4>
+                            <p>Análisis detallado del consumo energético</p>
+                            <button class="btn-generate" data-report="consumption">
+                                <i class="fas fa-download"></i>
+                                Generar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="report-content">
+                            <h4>Reporte de Usuarios</h4>
+                            <p>Estadísticas de usuarios registrados</p>
+                            <button class="btn-generate" data-report="users">
+                                <i class="fas fa-download"></i>
+                                Generar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="report-content">
+                            <h4>Reporte Financiero</h4>
+                            <p>Análisis de ingresos y pagos</p>
+                            <button class="btn-generate" data-report="financial">
+                                <i class="fas fa-download"></i>
+                                Generar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="report-content">
+                            <h4>Reporte de Incidencias</h4>
+                            <p>Análisis de quejas y reclamos</p>
+                            <button class="btn-generate" data-report="incidents">
+                                <i class="fas fa-download"></i>
+                                Generar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <h3>Acciones Rápidas</h3>
+            <div class="actions-grid">
+                <button class="action-btn">
+                    <i class="fas fa-plus"></i>
+                    Nuevo Usuario
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-broadcast-tower"></i>
+                    Enviar Notificación
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-cogs"></i>
+                    Configuración
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-database"></i>
+                    Backup
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Complaint Details -->
+    <div class="modal" id="complaint-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalles del Reclamo</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="complaint-details">
+                <!-- Se llenará dinámicamente -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="close-modal">Cerrar</button>
+                <button class="btn-primary" id="update-status">Actualizar Estado</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/InicioAdmin.js"></script>
+</body>
+</html>
