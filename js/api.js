@@ -1,7 +1,7 @@
 // Configuración y funciones para comunicación con el backend
 class ElectroCloudAPI {
     constructor() {
-        this.baseURL = 'http://56.124.98.165:3000/api';
+        this.baseURL = '/api';
         this.token = localStorage.getItem('electrocloud_token');
     }
 
