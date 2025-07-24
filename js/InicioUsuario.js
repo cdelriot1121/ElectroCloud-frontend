@@ -287,14 +287,58 @@ async function loadUserNotifications() {
     }
 }
 
-// Agregar función de logout
+// Agregar función de logout mejorada
 function logout() {
-    window.electroAPI.removeToken();
-    localStorage.removeItem('electrocloud_user');
-    showNotification('Sesión cerrada exitosamente', 'success');
+    // Mostrar confirmación
+    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        // Limpiar todos los datos de la sesión
+        window.electroAPI.removeToken();
+        localStorage.removeItem('electrocloud_user');
+        localStorage.removeItem('electrocloud_token');
+        sessionStorage.clear();
+        
+        // Mostrar notificación
+        showNotification('Cerrando sesión...', 'info');
+        
+        // Redirigir después de un pequeño delay
+        setTimeout(() => {
+            window.location.href = '../pages/login.html'; // ← Redirigir a login, no al index
+        }, 1000);
+    }
+}
+
+// Función para mostrar notificaciones (si no está en el archivo)
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">&times;</button>
+    `;
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : type === 'warning' ? '#f39c12' : '#3498db'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
     setTimeout(() => {
-        window.location.href = '../index.html';
-    }, 1000);
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
 }
 
 // Inicializar la aplicación

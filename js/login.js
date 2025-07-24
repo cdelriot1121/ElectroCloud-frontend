@@ -2,8 +2,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     
-    // Verificar si ya hay una sesión activa
-    checkExistingSession();
+    
+    // checkExistingSession();
 
     if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Guardar información del usuario
                 localStorage.setItem('electrocloud_user', JSON.stringify(response.user));
                 
-                // ✅ CORREGIDO: Rutas relativas correctas
+                // Redirigir según el rol
                 setTimeout(() => {
                     if (response.user.rol === 'admin') {
-                        window.location.href = 'InicioAdmin.html';  // ← Sin "pages/"
+                        window.location.href = 'InicioAdmin.html';
                     } else {
-                        window.location.href = 'InicioUsuario.html'; // ← Sin "pages/"
+                        window.location.href = 'InicioUsuario.html';
                     }
                 }, 1000);
 
@@ -57,17 +57,26 @@ document.addEventListener('DOMContentLoaded', function() {
     checkBackendConnection();
 });
 
+// ✅ MODIFICAR LA FUNCIÓN PARA QUE NO REDIRIJA AUTOMÁTICAMENTE
 async function checkExistingSession() {
     try {
         const verification = await window.electroAPI.verifyToken();
         if (verification && verification.valid) {
-            const user = verification.user;
-            // ✅ CORREGIDO: Rutas relativas correctas
-            if (user.rol === 'admin') {
-                window.location.href = 'InicioAdmin.html';  // ← Sin "pages/"
-            } else {
-                window.location.href = 'InicioUsuario.html'; // ← Sin "pages/"
-            }
+            // Solo mostrar un mensaje, no redirigir automáticamente
+            console.log('Sesión activa detectada para:', verification.user.nombre);
+            showNotification(`Bienvenido de nuevo, ${verification.user.nombre}`, 'info');
+            
+            // Opcional: Mostrar un botón para ir al dashboard
+            setTimeout(() => {
+                if (confirm(`¿Quieres ir a tu dashboard, ${verification.user.nombre}?`)) {
+                    const user = verification.user;
+                    if (user.rol === 'admin') {
+                        window.location.href = 'InicioAdmin.html';
+                    } else {
+                        window.location.href = 'InicioUsuario.html';
+                    }
+                }
+            }, 1500);
         }
     } catch (error) {
         console.log('No hay sesión activa');
