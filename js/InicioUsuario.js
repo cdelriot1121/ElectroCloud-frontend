@@ -122,8 +122,230 @@ document.querySelectorAll('.notification').forEach(notification => {
     });
 });
 
+// Cargar datos reales del usuario
+async function loadUserDashboard() {
+    try {
+        // Verificar autenticación
+        const verification = await window.electroAPI.verifyToken();
+        if (!verification || !verification.valid) {
+            window.location.href = '../index.html';
+            return;
+        }
+
+        // Cargar datos del perfil
+        await loadUserProfile();
+        
+        // Cargar último consumo
+        await loadLatestConsumption();
+        
+        // Cargar última factura
+        await loadLatestBill();
+        
+        // Cargar reclamos
+        await loadUserClaims();
+        
+        // Cargar notificaciones
+        await loadUserNotifications();
+
+    } catch (error) {
+        console.error('Error cargando dashboard:', error);
+        showNotification('Error al cargar los datos del dashboard', 'error');
+    }
+}
+
+async function loadUserProfile() {
+    try {
+        const profile = await window.electroAPI.getUserProfile();
+        
+        // Actualizar nombre en el dashboard
+        const welcomeSection = document.querySelector('.welcome-section h1');
+        if (welcomeSection) {
+            welcomeSection.textContent = `Bienvenido, ${profile.nombre}`;
+        }
+
+        // Actualizar información del dropdown
+        const userNameSpan = document.getElementById('user-name');
+        if (userNameSpan) {
+            userNameSpan.textContent = profile.nombre;
+        }
+
+    } catch (error) {
+        console.error('Error cargando perfil:', error);
+    }
+}
+
+async function loadLatestConsumption() {
+    try {
+        const consumptionData = await window.electroAPI.getLatestConsumption();
+        
+        const energyCard = document.querySelector('.energy-card');
+        if (energyCard && consumptionData.consumo_actual) {
+            const consumo = consumptionData.consumo_actual;
+            const comparacion = consumptionData.comparacion;
+            
+            // Actualizar valor principal
+            const valueElement = energyCard.querySelector('.card-value');
+            if (valueElement) {
+                valueElement.textContent = `${consumo.kwh} kWh`;
+            }
+
+            // Actualizar comparación si existe
+            if (comparacion && energyCard.querySelector('.card-change')) {
+                const changeElement = energyCard.querySelector('.card-change');
+                const isIncrease = comparacion.tendencia === 'aumento';
+                
+                changeElement.innerHTML = `
+                    <span class="${isIncrease ? 'increase' : 'decrease'}">
+                        ${isIncrease ? '↗' : '↘'} ${Math.abs(comparacion.porcentaje_cambio)}%
+                    </span>
+                    vs mes anterior
+                `;
+            }
+        }
+
+    } catch (error) {
+        console.error('Error cargando consumo:', error);
+    }
+}
+
+async function loadLatestBill() {
+    try {
+        const billData = await window.electroAPI.getLatestBill();
+        
+        const billCard = document.querySelector('.bill-card');
+        if (billCard && billData.factura) {
+            const factura = billData.factura;
+            
+            // Actualizar monto
+            const valueElement = billCard.querySelector('.card-value');
+            if (valueElement) {
+                valueElement.textContent = `$${factura.monto.toLocaleString('es-CO')}`;
+            }
+
+            // Actualizar estado y vencimiento
+            const statusElement = billCard.querySelector('.card-status');
+            if (statusElement) {
+                const estado = factura.estado === 'pendiente' ? 'Pendiente' : 'Pagada';
+                const urgente = factura.urgente ? ' (URGENTE)' : '';
+                statusElement.textContent = `${estado}${urgente}`;
+                
+                if (factura.urgente) {
+                    statusElement.style.color = '#e74c3c';
+                }
+            }
+        }
+
+    } catch (error) {
+        console.error('Error cargando factura:', error);
+    }
+}
+
+async function loadUserClaims() {
+    try {
+        const claimsData = await window.electroAPI.getUserClaims();
+        
+        const claimsCard = document.querySelector('.claims-card');
+        if (claimsCard && claimsData.reclamos) {
+            const totalReclamos = claimsData.reclamos.length;
+            const reclamosActivos = claimsData.reclamos.filter(r => 
+                r.estado === 'pendiente' || r.estado === 'en_proceso'
+            ).length;
+            
+            // Actualizar número total
+            const valueElement = claimsCard.querySelector('.card-value');
+            if (valueElement) {
+                valueElement.textContent = totalReclamos.toString();
+            }
+
+            // Actualizar estado
+            const statusElement = claimsCard.querySelector('.card-status');
+            if (statusElement) {
+                statusElement.textContent = `${reclamosActivos} activos`;
+            }
+        }
+
+    } catch (error) {
+        console.error('Error cargando reclamos:', error);
+    }
+}
+
+async function loadUserNotifications() {
+    try {
+        const notificationsData = await window.electroAPI.getNotifications(5);
+        
+        if (notificationsData.notificaciones) {
+            // Actualizar contador de notificaciones no leídas
+            const notificationBadge = document.querySelector('.notification-badge');
+            if (notificationBadge) {
+                notificationBadge.textContent = notificationsData.no_leidas;
+                notificationBadge.style.display = notificationsData.no_leidas > 0 ? 'block' : 'none';
+            }
+        }
+
+    } catch (error) {
+        console.error('Error cargando notificaciones:', error);
+    }
+}
+
+// Agregar función de logout mejorada
+function logout() {
+    // Mostrar confirmación
+    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        // Limpiar todos los datos de la sesión
+        window.electroAPI.removeToken();
+        localStorage.removeItem('electrocloud_user');
+        localStorage.removeItem('electrocloud_token');
+        sessionStorage.clear();
+        
+        // Mostrar notificación
+        showNotification('Cerrando sesión...', 'info');
+        
+        // Redirigir después de un pequeño delay
+        setTimeout(() => {
+            window.location.href = '../pages/login.html'; // ← Redirigir a login, no al index
+        }, 1000);
+    }
+}
+
+// Función para mostrar notificaciones (si no está en el archivo)
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">&times;</button>
+    `;
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : type === 'warning' ? '#f39c12' : '#3498db'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
 // Inicializar la aplicación
 document.addEventListener('DOMContentLoaded', function () {
     initTheme();
     setTimeout(animateNumbers, 500);
+    
+    // Cargar datos reales del dashboard
+    loadUserDashboard();
 });
