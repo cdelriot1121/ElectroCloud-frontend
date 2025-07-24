@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Guardar información del usuario
                 localStorage.setItem('electrocloud_user', JSON.stringify(response.user));
                 
-                // Redirigir según el rol
+                // ✅ CORREGIDO: Rutas relativas correctas
                 setTimeout(() => {
                     if (response.user.rol === 'admin') {
-                        window.location.href = 'pages/InicioAdmin.html';
+                        window.location.href = 'InicioAdmin.html';  // ← Sin "pages/"
                     } else {
-                        window.location.href = 'pages/InicioUsuario.html';
+                        window.location.href = 'InicioUsuario.html'; // ← Sin "pages/"
                     }
                 }, 1000);
 
@@ -62,10 +62,11 @@ async function checkExistingSession() {
         const verification = await window.electroAPI.verifyToken();
         if (verification && verification.valid) {
             const user = verification.user;
+            // ✅ CORREGIDO: Rutas relativas correctas
             if (user.rol === 'admin') {
-                window.location.href = 'pages/InicioAdmin.html';
+                window.location.href = 'InicioAdmin.html';  // ← Sin "pages/"
             } else {
-                window.location.href = 'pages/InicioUsuario.html';
+                window.location.href = 'InicioUsuario.html'; // ← Sin "pages/"
             }
         }
     } catch (error) {

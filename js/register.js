@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Guardar información del usuario
                 localStorage.setItem('electrocloud_user', JSON.stringify(response.user));
                 
-                // Redirigir al dashboard del usuario (siempre será cliente en registro)
+                // ✅ CORREGIDO: Ruta relativa correcta
                 setTimeout(() => {
-                    window.location.href = 'InicioUsuario.html';
+                    window.location.href = 'InicioUsuario.html'; // ← Sin "pages/"
                 }, 1500);
 
             } catch (error) {
